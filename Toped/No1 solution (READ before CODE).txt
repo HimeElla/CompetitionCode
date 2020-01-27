@@ -1,0 +1,95 @@
+Soal meminta utk mencari apakah suatu angka(n) yg diberikan oleh user tsb adalah 
+bil prima atau bukan.
+Jika angka tsb bkn merupakan bil prima maka prog. menampilkan pembagi terbesarnya.
+Mis: angka 16 (bkn prima) maka prog. akan menampilkan angka 8 sbg pembagi terbesarnya.
+
+problem:
+1. Bagaimana cara mencari bil. prima?
+	ctt: bil. prima adalah bil yg habis dibagi oleh bil itu sendiri.
+	ctt: angka 1 bukan bil prima.
+2. Bagaimana cara mencari pembagi terbesarnya?
+3. Apa cara tercepat untuk mencari pembagi tercepatnya?
+
+ans:
+1. Mencari apakah angka tersebut dapat dibagi dengan bil. lain atau tidak.
+Sehingga kita memerlukan looping dr 1 s/d n untuk mendapatkannya.
+Membagi angka tsb dri 1 s/d n. Bila n habis dibagi i maka angka tsb bkn prima.
+	ctt: kita menggunakan fungsi %(modulus) -> sisa bagi.
+	ctt: bila n mod i = 0 berarti n habis dibagi i (tidak bersisa).
+	ctt: untuk looping dapat menggunkan do-while, while-do, ataupun for
+algoritma:
+for i := 1 to n do
+	if(n%i := 0 AND i := n)
+		bil.prima
+ctt: pake for karena lbh mudah dimodif & batasannya jg udah ditentukan & lbh jls.
+
+2. Membagi angka tsb dari 1-n & mencari pembagi terbesarnya.
+
+cth kasus: angka 6
+1 2 3 4 5 6
+  ^ ^
+dpt dilihat bahwa angka 6 dpt dibagi dg angka 2&3 dan semakin ke kanan maka akan 
+semakin besar angka pembaginya. Sehingga kita tidak memerlukan algo max.
+algoritma:
+for i := 1 to n do
+	if(n%i := 0 AND i := n) then
+		cek := 1;
+		bil.prima
+	else if(n%i := 0) then
+		temp := i
+if(cek :!= 1) then
+	print temp
+
+Cara tsb tentu sangat naif karena looping akan terus dilakukan sampai n bila bil. 
+tsb merupakan bil prima. Akan membutuhkan byk waktu pula utk mencari pembagi
+terbesarnya. Bayangkan jika angka yg dicari >1jt.
+Maka kita harus memodif algoritma diatas.
+
+3. Utk mencari algoritma yg lebih cepat, kita membutuhkan beberapa contoh kasus
+agar mendapatkan permasalahannya dan menemukan solusinya.
+cth kasus: angka 13
+1 2 3 4 5 6 7 8 9 10 11 12 13
+^                           ^
+cth kasus: angka 20
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+^ ^   ^ ^          ^
+bila kita perhatikan cara tercepatnya tentu dg membagi dari 1 s/d n.
+Namun bagaimana cara kita memastikan bahwa angka tsb yg terbesar?
+Cara naif lainnya adalah mencari dari n s/d 1 utk mencari angka terbesar.
+algoritma:
+for i := n-1 to 1 do
+	if(n%i := 0) then
+		cek := 1;
+		temp := i;
+		break; //Digunakan utk langsung keluar dr loop karena udah pasti bkn prima.
+if(cek > 0) then
+	temp := bil.prima
+else then
+	bil.prima
+
+Namun cara tersebut msh belum cepat.
+Bagaimana bila angka tsb adalah prima? Maka akan diloop hingga akhir bkn?
+Solusinya kita bisa memangkas angka tersebut hingga setengahnya. Kenapa?
+Bil. pembagi terbesar suatu angka adalah hasil baginya dg angka 2. Percaya?
+cth kasus: angka 13
+bila dibagi 2 maka terjadi pembulatan ke bwh, 13/2 = 6.5 = 6.
+1 2 3 4 5 6 
+^
+7 8 9 10 11 12 13
+                ^
+cth kasus: angka 20
+bila dibagi 2, maka 20/2 = 10.
+1 2 3 4 5 6 7 8 9 10
+^ ^   ^ ^          ^
+11 12 13 14 15 16 17 18 19 20
+                            ^
+masih belum percaya?
+cth kasus: angka 100000
+bila dibagi 2, maka 100000/2 = 50000.
+apakah 100000 dpt habis dibagi >50000?
+
+Maka didpt algoritma lain yg lebih cepat, yaitu dengan memastikan apakah n habis
+dibagi dengan n/2. Jika ya, maka bil pembagi terbesarnya adalah n/2. Jika tidak,
+maka angka tsb adalah prima.
+algoritma? seharusnya sudah lebih mudah :v
+clue: no looping, just if.
